@@ -1,9 +1,20 @@
 import { useEffect, useState } from "react";
+import BookCard from "./components/BookCard";
+
+interface Book {
+  key: string;
+  title: string;
+  cover_i: number;
+}
 
 function App() {
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
+  const [query, setQuery] = useState<string>("");
+  const [results, setResults] = useState<Book[]>([]);
   useEffect(() => {
+    if (query.length < 3) {
+      setResults([]);
+      return;
+    }
     const books = async () => {
       const response = await fetch(
         `https://openlibrary.org/search.json?q=${query}&limit=10&page=1`
@@ -24,8 +35,11 @@ function App() {
       />
       <div>
         {results.map((book) => (
-          <div key={book.title}>
-            <h2>{book.title}</h2>
+          <div key={book.key}>
+            <BookCard
+              title={book.title}
+              src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
+            />
           </div>
         ))}
       </div>
