@@ -5,6 +5,7 @@ interface Book {
   key: string;
   title: string;
   cover_i: number;
+  author_name: string[];
 }
 
 function App() {
@@ -26,21 +27,25 @@ function App() {
   }, [query]);
   return (
     <>
-      <input
-        type="text"
-        name=""
-        id=""
-        value={query}
-        onChange={(event) => setQuery(event.target.value)}
-      />
-      <div>
+      <div className="flex justify-between sticky top-0 mb-6 bg-slate-500 p-4">
+        <h3>Personal Bookshelf</h3>
+        <input
+          className="border border-black"
+          type="text"
+          placeholder="Search Books here...."
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+        />
+        <h3>My BookShelf</h3>
+      </div>
+      <div className="flex flex-wrap gap-4 justify-center ">
         {results.map((book) => (
-          <div key={book.key}>
-            <BookCard
-              title={book.title}
-              src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
-            />
-          </div>
+          <BookCard
+            key={book.key}
+            title={book.title}
+            src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
+            author={book.author_name}
+          />
         ))}
       </div>
     </>
