@@ -42,6 +42,7 @@ function App() {
         {results.map((book) => (
           <BookCard
             key={book.key}
+            id={book.key}
             title={book.title}
             src={`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`}
             author={book.author_name}
