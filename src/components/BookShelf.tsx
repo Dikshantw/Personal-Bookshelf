@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BookCard from "./BookCard";
-
+import { Link } from "react-router-dom";
 interface Book {
   id: string;
   title: string;
@@ -17,8 +17,13 @@ const BookShelf: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Bookshelf</h1>
+    <>
+      <div className="flex justify-between items-center sticky top-0 mb-4 bg-slate-500 p-3">
+        <h3 className="text-white font-bold">My Bookshelf</h3>
+        <Link to="/" className="text-white font-bold">
+          Search more books
+        </Link>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {bookInShelf.map((book) => (
           <BookCard
@@ -31,7 +36,7 @@ const BookShelf: React.FC = () => {
           />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
