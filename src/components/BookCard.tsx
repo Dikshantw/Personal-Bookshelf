@@ -5,9 +5,16 @@ interface BookCardProp {
   title: string;
   src: string;
   author: string[];
+  showButtons?: boolean;
 }
 
-const BookCard: React.FC<BookCardProp> = ({ id, title, src, author }) => {
+const BookCard: React.FC<BookCardProp> = ({
+  id,
+  title,
+  src,
+  author,
+  showButtons = true,
+}) => {
   const [isBookInShelf, setIsBookInShelf] = useState<boolean>(false);
   useEffect(() => {
     const bookshelf = JSON.parse(localStorage.getItem("bookshelf") || "[]");
@@ -41,21 +48,22 @@ const BookCard: React.FC<BookCardProp> = ({ id, title, src, author }) => {
         <p className="text-sm text-gray-600">
           {author.join(", ") || "Not Available"}
         </p>
-        {isBookInShelf ? (
-          <button
-            className="ml-4 py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={removeFromShelf}
-          >
-            ✓
-          </button>
-        ) : (
-          <button
-            className="ml-4 py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={addToBookshelf}
-          >
-            Add
-          </button>
-        )}
+        {showButtons &&
+          (isBookInShelf ? (
+            <button
+              className="ml-4 py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600"
+              onClick={removeFromShelf}
+            >
+              Remove
+            </button>
+          ) : (
+            <button
+              className="ml-4 py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={addToBookshelf}
+            >
+              Add
+            </button>
+          ))}
       </div>
     </div>
   );
