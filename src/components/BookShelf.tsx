@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BookCard from "./BookCard";
 import { Link } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
 interface Book {
   id: string;
   title: string;
@@ -21,10 +22,11 @@ const BookShelf: React.FC = () => {
       <div className="flex justify-between items-center sticky top-0 mb-4 bg-slate-500 p-3">
         <h3 className="text-white font-bold">My Bookshelf</h3>
         <Link to="/" className="text-white font-bold">
-          Search more books
+          <span className="hidden sm:inline">Search more books</span>
+          <FaSearch className="inline sm:hidden" />
         </Link>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="flex flex-wrap gap-4 justify-center">
         {bookInShelf.map((book) => (
           <BookCard
             key={book.id}
